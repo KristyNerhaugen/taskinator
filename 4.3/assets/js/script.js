@@ -222,7 +222,28 @@ var deleteTask = function(taskId) {
 
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+};
+
+var loadTasks = function() {
+  // get tasks from localStorage
+  tasks = localStorage.getItem("tasks");
+  console.log()
+
+  // if nothing in localStorage, create a new object to track all task status arrays
+  if (!tasks) {
+    return false;
+  }
+  //convert tasks from the string back into an array
+  tasks = JSON.parse(tasks);
+
+  // iterate (loop) through a task array and create task elements on the page from it 
+  for (var i = 0, i < tasks.length; i++) {
+    
+    var listItemEL = document.createElement("li");
+    listItemEl.className = "task-item";
+    listItemEl.setAttribute("data-task-id", tasks[i].id);
+  }
+};
 
 // Create a new task
 formEl.addEventListener("submit", taskFormHandler);
@@ -232,3 +253,5 @@ pageContentEl.addEventListener("click", taskButtonHandler);
 
 // for changing the status
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
